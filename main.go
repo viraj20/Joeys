@@ -4,10 +4,10 @@ import (
 	"log"
 	"net/http"
 
-	api "github.com/viraj20/Joeys/pkg/api"
-	v1 "github.com/viraj20/Joeys/pkg/api/v1"
-	build "github.com/viraj20/Joeys/pkg/api/v1/build"
-	commit "github.com/viraj20/Joeys/pkg/api/v1/commit"
+	api "Joeys/pkg/api"
+	v1 "Joeys/pkg/api/v1"
+	build "Joeys/pkg/api/v1/build"
+	commit "Joeys/pkg/api/v1/commit"
 
 	"github.com/gorilla/mux"
 )
