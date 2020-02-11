@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: joeysdeployment
+  labels:
+    app: joeys
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: joeys
+  template:
+    metadata:
+      labels:
+        app: joeys
+    spec:
+      containers:
+      - name: joeys
+        image: joeys
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080

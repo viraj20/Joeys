@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello
+spec:
+    template:
+      spec:
+        containers:
+        - name: hello
+          image: docker
+          command: ["/bin/sh","-c"]
+          args: ["docker login -u viraj24 -p Pass@123; docker build -f /clone-volume/Dockerfile -t viraj24/viraj:hellotestdockerimage /clone-volume/; docker push viraj24/viraj:hellotestdockerimage"]
+          volumeMounts:
+          - mountPath: /clone-volume
+            name: clone-volume
+          - mountPath: /var/run/docker.sock
+            name: docker-pv-storage
+        restartPolicy: Never
+        initContainers:
+        - name: git-clone
+          image: alpine/git
+          command: ["/bin/sh","-c","git clone https://github.com/viraj20/docker.git /clone-volume"]
+          volumeMounts:
+          - mountPath: /clone-volume
+            name: clone-volume
+        volumes:
+        - name: clone-volume
+          emptyDir: {}
+        - name: docker-pv-storage
+          persistentVolumeClaim:
+            claimName: docker-pv-claim
