@@ -12,6 +12,7 @@ import (
 	//"k8s.io/client-go/kubernetes/typed/batch/v1/"
 )
 
+//Post To Create Kubernetes Job To Build Images
 func Post(responseWriter http.ResponseWriter, request *http.Request) {
 
 	config, err := rest.InClusterConfig()
@@ -28,7 +29,7 @@ func Post(responseWriter http.ResponseWriter, request *http.Request) {
 
 	job := &v1.Job{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      "dockerImageBuildJob",
+			Name:      "dockerimagebuildjob",
 			Namespace: "default",
 		},
 		Spec: v1.JobSpec{
@@ -36,7 +37,7 @@ func Post(responseWriter http.ResponseWriter, request *http.Request) {
 				Spec: corev1.PodSpec{
 					Containers: []corev1.Container{
 						{
-							Name:    "dockerImageBuildJob",
+							Name:    "dockerimagebuildjob",
 							Image:   "docker",
 							Command: []string{"docker login -u viraj24 -p Pass@123; docker build -f /clone-volume/Dockerfile -t viraj24/viraj:hellotestdockerimage /clone-volume/; docker push viraj24/viraj:hellotestdockerimage"},
 							VolumeMounts: []corev1.VolumeMount{

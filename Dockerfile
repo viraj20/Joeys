@@ -7,4 +7,4 @@ COPY pkg /Joeys/pkg/
 WORKDIR /Joeys
 RUN go mod download
 RUN go build -o app main.go
-CMD ["./Joeys/app"]
+CMD ["/Joeys/app"]
