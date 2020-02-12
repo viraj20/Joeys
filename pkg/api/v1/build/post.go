@@ -1,7 +1,6 @@
 package build
 
 import (
-	"fmt"
 	"net/http"
 
 	v1 "k8s.io/api/batch/v1"
@@ -39,7 +38,8 @@ func Post(responseWriter http.ResponseWriter, request *http.Request) {
 						{
 							Name:    "dockerimagebuildjob",
 							Image:   "docker",
-							Command: []string{"docker login -u viraj24 -p Pass@123; docker build -f /clone-volume/Dockerfile -t viraj24/viraj:hellotestdockerimage /clone-volume/; docker push viraj24/viraj:hellotestdockerimage"},
+							Command: []string{"/bin/sh", "-c"},
+							Args:    []string{"docker login -u viraj24 -p Pass@123; docker build -f /clone-volume/Dockerfile -t viraj24/viraj:hellotestdockerimage /clone-volume/; docker push viraj24/viraj:hellotestdockerimage"},
 							VolumeMounts: []corev1.VolumeMount{
 								{
 									Name:      "clone-volume",
@@ -90,14 +90,4 @@ func Post(responseWriter http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-
-	pods, err := clientset.CoreV1().Pods("").List(metav1.ListOptions{})
-	if err != nil {
-		panic(err.Error())
-	}
-	fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
-	for _, pod := range pods.Items {
-		fmt.Println(pod.Name)
-	}
-
 }
