@@ -30,5 +30,4 @@ func Get(responseWriter http.ResponseWriter, request *http.Request) {
 	responseWriter.WriteHeader(http.StatusOK)
 	jsonString, _ := json.Marshal(response)
 	responseWriter.Write([]byte(jsonString))
-
 }
