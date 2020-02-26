@@ -27,6 +27,7 @@ func Get(responseWriter http.ResponseWriter, request *http.Request) {
 		return nil
 	})
 	responseWriter.Header().Set("Content-Type", "application/json")
+	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	responseWriter.WriteHeader(http.StatusOK)
 	jsonString, _ := json.Marshal(response)
 	responseWriter.Write([]byte(jsonString))

@@ -1,16 +1,40 @@
-<mat-form-field appearance="fill">
+<!-- <mat-form-field appearance="fill">
     <mat-label>Select</mat-label>
     <mat-select>
       <mat-option value="option">https://github.com/viraj20/docker</mat-option>
     </mat-select>
-  </mat-form-field>
-  <button mat-button>Click me!</button>
+  </mat-form-field> -->
 
 
-<mat-list>
-    <mat-list-item>
-        <button mat-icon-button>
-           <mat-icon>info</mat-icon>
-        </button>
-     </mat-list-item>
-</mat-list>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <table mat-table [dataSource]="commitMessages" class="mat-elevation-z8" *ngIf="!isLoading">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="Author">
+      <th mat-header-cell *matHeaderCellDef> Author </th>
+      <td mat-cell *matCellDef="let element"> {{element.Author}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="CommitId">
+      <th mat-header-cell *matHeaderCellDef> CommitId </th>
+      <td mat-cell *matCellDef="let element"> {{element.CommitID}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="CommitMessage">
+      <th mat-header-cell *matHeaderCellDef> CommitMessage </th>
+      <td mat-cell *matCellDef="let element"> {{element.CommitMessage}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Build">
+      <th mat-header-cell *matHeaderCellDef> Build </th>
+      <td mat-cell *matCellDef="let element"> <button mat-raised-button color=primary >Build</button> </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

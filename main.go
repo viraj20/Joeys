@@ -21,5 +21,6 @@ func main() {
 	allCommitSubRoute.HandleFunc("/", commit.Get)
 	buildSubRoute := apiV1SubRoute.PathPrefix("/build").Subrouter()
 	buildSubRoute.HandleFunc("/", build.Post).Methods(http.MethodPost)
+	buildSubRoute.HandleFunc("/", build.Get).Methods(http.MethodGet)
 	log.Fatal(http.ListenAndServe(":8080", r))
 }
